@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Silent Death Database Token</title>
+  <!-- Google Fonts: Bebas Neue -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #1a1a1a 0%, #0c0c0c 100%);
+      font-family: 'Bebas Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      color: #e0e0e0;
+    }
+
+    .glass-container {
+      max-width: 550px;
+      width: 100%;
+      background: rgba(25, 25, 25, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      background: #0f0f0f;
+      padding: 1.8rem 2rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .avatar {
+      width: 85px;
+      height: 85px;
+      background: linear-gradient(135deg, #3a3a3a, #1e1e1e);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #5a5a5a;
+      box-shadow: 0 8px 14px rgba(0,0,0,0.4);
+    }
+
+    .avatar i {
+      font-size: 3.2rem;
+      color: #b0b0b0;
+      text-shadow: 0 2px 5px black;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      color: #f0f0f0;
+      font-weight: 400;
+      word-break: keep-all;
+    }
+
+    .sub {
+      font-family: 'Segoe UI', system-ui;
+      font-size: 0.85rem;
+      color: #9f9f9f;
+      margin-top: 0.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    .content {
+      padding: 2rem 2rem 2rem;
+    }
+
+    /* Login form & token form */
+    .input-group {
+      margin-bottom: 1.6rem;
+    }
+
+    label {
+      display: block;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+    }
+
+    input {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid #3a3a3a;
+      padding: 0.9rem 1.2rem;
+      border-radius: 2rem;
+      font-size: 1rem;
+      font-family: 'Segoe UI', monospace;
+      color: #f0f0f0;
+      transition: 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #7a7a7a;
+      background: #262626;
+      box-shadow: 0 0 0 2px rgba(120,120,120,0.2);
+    }
+
+    button {
+      background: #2c2c2c;
+      border: none;
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 2.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      font-weight: 400;
+      color: #eaeaea;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      border-bottom: 1px solid #444;
+    }
+
+    button:hover {
+      background: #3d3d3d;
+      transform: scale(0.98);
+      color: white;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .action-buttons button {
+      flex: 1;
+      background: #232323;
+    }
+
+    .telegram-btn {
+      background: #1f2a36;
+      border-bottom-color: #4a6f8f;
+    }
+
+    .telegram-btn:hover {
+      background: #2c4055;
+    }
+
+    .message {
+      margin-top: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 2rem;
+      text-align: center;
+      font-family: monospace;
+      font-size: 0.9rem;
+      background: #1a1a1a;
+      border-left: 4px solid #5a5a5a;
+    }
+
+    .error-msg {
+      border-left-color: #b34e4e;
+      color: #ffb4b4;
+    }
+
+    .success-msg {
+      border-left-color: #6fbf4c;
+      color: #c0ffb0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 1rem;
+      color: #555;
+      border-top: 1px solid #252525;
+      font-family: monospace;
+    }
+
+    hr {
+      border-color: #2e2e2e;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-container" id="app">
+  <div class="header">
+    <div class="avatar">
+      <i class="fas fa-skull"></i>
+    </div>
+    <h1>SILENT DEATH<br><span style="font-size:1.4rem;">DATABASE TOKEN</span></h1>
+    <div class="sub">Secure Token Manager • GitHub Real-time</div>
+  </div>
+
+  <div class="content">
+    <!-- Login Section -->
+    <div id="loginSection">
+      <div class="input-group">
+        <label><i class="fas fa-lock"></i> ADMIN PASSWORD</label>
+        <input type="password" id="passwordInput" placeholder="Masukkan password admin" autocomplete="off">
+      </div>
+      <button id="loginBtn"><i class="fas fa-key"></i> AKSES DATABASE</button>
+      <div class="message" id="loginMessage" style="display:none;"></div>
+    </div>
+
+    <!-- Token Manager Section (setelah login) -->
+    <div id="tokenSection" class="hidden">
+      <div class="input-group">
+        <label><i class="fab fa-telegram-plane"></i> BOT TOKEN BARU</label>
+        <input type="text" id="newToken" placeholder="Contoh: 1234567890:AAH...">
+      </div>
+      <button id="addTokenBtn"><i class="fas fa-plus-circle"></i> TAMBAH KE REPO</button>
+      
+      <div class="action-buttons">
+        <button id="telegramOwnerBtn" class="telegram-btn"><i class="fab fa-telegram"></i> OWNER</button>
+      </div>
+      <div id="tokenMessage" class="message hidden"></div>
+      <hr>
+      <div style="font-size: 0.8rem; text-align: center;">
+        <i class="fas fa-database"></i> Token langsung tersimpan di <strong>tokens.json</strong> (GitHub)
+      </div>
+    </div>
+    <footer>Silent Death Security • Auto Update via GitHub API</footer>
+  </div>
+</div>
+
+<script>
+  // Konfigurasi endpoint API (relatif, akan otomatis ke /api/add-token)
+  const API_URL = '/api/add-token';
+
+  // DOM elements
+  const loginSection = document.getElementById('loginSection');
+  const tokenSection = document.getElementById('tokenSection');
+  const loginBtn = document.getElementById('loginBtn');
+  const passwordInput = document.getElementById('passwordInput');
+  const loginMessageDiv = document.getElementById('loginMessage');
+  const addTokenBtn = document.getElementById('addTokenBtn');
+  const newTokenInput = document.getElementById('newToken');
+  const tokenMessageDiv = document.getElementById('tokenMessage');
+  const telegramOwnerBtn = document.getElementById('telegramOwnerBtn');
+
+  // SESSION sederhana (localStorage + state)
+  let isLoggedIn = false;
+
+  function checkLoginStatus() {
+    const logged = localStorage.getItem('silentDeathAuth');
+    if (logged === 'true') {
+      isLoggedIn = true;
+      showTokenManager();
+    } else {
+      isLoggedIn = false;
+      showLogin();
+    }
+  }
+
+  function showLogin() {
+    loginSection.classList.remove('hidden');
+    tokenSection.classList.add('hidden');
+    passwordInput.value = '';
+    loginMessageDiv.style.display = 'none';
+  }
+
+  function showTokenManager() {
+    loginSection.classList.add('hidden');
+    tokenSection.classList.remove('hidden');
+    tokenMessageDiv.classList.add('hidden');
+  }
+
+  async function handleLogin() {
+    const pwd = passwordInput.value.trim();
+    if (!pwd) {
+      showLoginMessage('Masukkan password!', 'error');
+      return;
+    }
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Verifikasi...';
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', password: pwd })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        localStorage.setItem('silentDeathAuth', 'true');
+        isLoggedIn = true;
+        showTokenManager();
+        showLoginMessage('✅ Akses diterima', 'success', true);
+      } else {
+        showLoginMessage('❌ Password salah!', 'error');
+      }
+    } catch (err) {
+      showLoginMessage('Gagal konek ke server. Cek API.', 'error');
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = '<i class="fas fa-key"></i> AKSES DATABASE';
+    }
+  }
+
+  async function addNewToken() {
+    const token = newTokenInput.value.trim();
+    if (!token) {
+      showTokenStatus('Token tidak boleh kosong!', 'error');
+      return;
+    }
+    // basic format telegram token
+    if (!token.match(/^\d+:[A-Za-z0-9_-]+$/)) {
+      showTokenStatus('Format token tidak valid (harus seperti 123456:AAF...)', 'error');
+      return;
+    }
+    addTokenBtn.disabled = true;
+    addTokenBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Mengupdate GitHub...';
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'add', token: token })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showTokenStatus(`✅ Token ${token} berhasil ditambahkan ke GitHub!`, 'success');
+        newTokenInput.value = '';
+      } else {
+        showTokenStatus(`❌ Gagal: ${data.error || 'Unknown error'}`, 'error');
+      }
+    } catch (err) {
+      showTokenStatus('Error jaringan atau server.', 'error');
+    } finally {
+      addTokenBtn.disabled = false;
+      addTokenBtn.innerHTML = '<i class="fas fa-plus-circle"></i> TAMBAH KE REPO';
+    }
+  }
+
+  function showLoginMessage(msg, type, autoClear = true) {
+    loginMessageDiv.textContent = msg;
+    loginMessageDiv.className = `message ${type === 'error' ? 'error-msg' : 'success-msg'}`;
+    loginMessageDiv.style.display = 'block';
+    if (autoClear) {
+      setTimeout(() => {
+        if (loginMessageDiv) loginMessageDiv.style.display = 'none';
+      }, 3000);
+    }
+  }
+
+  function showTokenStatus(msg, type) {
+    tokenMessageDiv.textContent = msg;
+    tokenMessageDiv.className = `message ${type === 'error' ? 'error-msg' : 'success-msg'}`;
+    tokenMessageDiv.classList.remove('hidden');
+    setTimeout(() => {
+      tokenMessageDiv.classList.add('hidden');
+    }, 4000);
+  }
+
+  // Event listeners
+  loginBtn.addEventListener('click', handleLogin);
+  addTokenBtn.addEventListener('click', addNewToken);
+  telegramOwnerBtn.addEventListener('click', () => {
+    window.open('https://t.me/HamxyzOfficial', '_blank');
+  });
+
+  // Enter key on password field
+  passwordInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleLogin();
+  });
+  newTokenInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addNewToken();
+  });
+
+  checkLoginStatus();
+</script>
+</body>
+        </html>

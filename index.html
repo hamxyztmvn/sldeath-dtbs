@@ -236,7 +236,7 @@
       <div id="tokenMessage" class="message hidden"></div>
       <hr>
       <div style="font-size: 0.8rem; text-align: center;">
-        <i class="fas fa-database"></i> Token langsung tersimpan di <strong>tokens.json</strong> (GitHub)
+        <i class="fas fa-database"></i> Token langsung tersimpan di <strong>orang-kaya.json</strong> (GitHub)
       </div>
     </div>
     <footer>Silent Death Security • Auto Update via GitHub API</footer>
@@ -335,7 +335,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'add', token: token })
       });
-      const data = await res.json();
+      const data = awaibt res.json();
       if (res.ok && data.success) {
         showTokenStatus(`✅ Token ${token} berhasil ditambahkan ke GitHub!`, 'success');
         newTokenInput.value = '';
@@ -388,4 +388,4 @@
   checkLoginStatus();
 </script>
 </body>
-        </html>
+</html>
